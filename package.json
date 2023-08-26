@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/font": "^13.4.19",
     "@prisma/client": "^5.2.0",
     "@types/node": "20.5.4",
     "@types/react": "18.2.21",
@@ -25,6 +26,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "prisma": "^5.2.0"
+    "prisma": "^5.2.0",
+    "sass": "^1.66.1"
   }
 }
