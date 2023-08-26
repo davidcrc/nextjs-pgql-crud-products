@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { inter, roboto_mono, open_sans } from "./fonts";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,12 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${roboto_mono.variable} ${open_sans.variable}`}
     >
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Providers>
+          <h1 className="text-white">Navbar</h1>
+          <div className="h-[calc(100vh-5rem)] w-[calc(100vw)]">{children}</div>
+        </Providers>
+      </body>
     </html>
   );
 }
