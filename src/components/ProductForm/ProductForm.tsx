@@ -5,9 +5,11 @@ import { Controller, useForm } from "react-hook-form";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import productService from "@/service/product-service";
 import { ProductFormType } from ".";
+import { useRouter } from "next/navigation";
 
 const ProductForm = () => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const formMethods = useForm<ProductFormType>({
     defaultValues: {
       name: "",
@@ -33,6 +35,7 @@ const ProductForm = () => {
       console.log("mmm", response);
 
       reset({});
+      router.push("/products");
     } catch (error) {
       console.log("err", error);
     } finally {
@@ -57,6 +60,7 @@ const ProductForm = () => {
             labelPlacement="outside"
             label="Product Name"
             placeholder="name"
+            autoFocus
           />
         )}
       />

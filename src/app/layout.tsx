@@ -21,7 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <h1 className="text-white">Navbar</h1>
-          <div className="h-[calc(100vh-5rem)] w-[calc(100vw)]">{children}</div>
+          <div className="h-[calc(100vh-5rem)] w-[calc(100vw)] px-8">
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

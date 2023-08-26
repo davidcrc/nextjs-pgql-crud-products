@@ -1,6 +1,6 @@
 const endpoints = {
   product: {
-    get: (uuid?: string) => (!!uuid ? `/product/${uuid}` : "/products"),
+    get: (uuid?: string) => (!!uuid ? `/products/${uuid}` : "/products"),
     create: () => "/products",
   },
 };

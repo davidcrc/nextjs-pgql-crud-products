@@ -25,11 +25,13 @@ const getProduct = async (input: GetInput) => {
   }
 };
 
-const getProducts = async ({ product_uuid }: GetInput) => {
+const getProducts = async (usingSSR: boolean = false) => {
+  const url = usingSSR
+    ? `${process.env.API_URL}/api${endpoints.product.get()}`
+    : endpoints.product.get();
+
   try {
-    const { data } = await apiMocked.get<Array<Product>>(
-      endpoints.product.get(product_uuid)
-    );
+    const { data } = await apiMocked.get<Array<Product>>(url);
 
     return data;
   } catch (error) {
