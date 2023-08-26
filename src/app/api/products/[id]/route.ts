@@ -60,6 +60,36 @@ export async function DELETE(_: NextRequest, { params }: Params) {
   }
 }
 
-export function PUT() {
-  return NextResponse.json({ message: "updating product" });
+export async function PUT(request: Request, { params }: Params) {
+  const data = await request.json();
+
+  const { id } = params;
+
+  try {
+    const product = await prisma.product.update({
+      data: {
+        ...data, //name, price, description
+      },
+      where: {
+        uuid: id,
+      },
+    });
+
+    if (!product) {
+      return NextResponse.json(
+        { message: "Product not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(product);
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json({ message: "Product found" }, { status: 404 });
+      }
+
+      return NextResponse.json(error.message, { status: 500 });
+    }
+  }
 }
