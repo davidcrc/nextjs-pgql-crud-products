@@ -7,17 +7,19 @@ type GetInput = {
   product_uuid?: string;
 };
 
-const getProduct = async (input: GetInput) => {
+const getProduct = async (input: GetInput, usingSSR: boolean = false) => {
   const { product_uuid } = input;
 
   if (!product_uuid) {
     return;
   }
 
+  const url = usingSSR
+    ? `${process.env.API_URL}/api${endpoints.product.get(product_uuid)}`
+    : endpoints.product.get(product_uuid);
+
   try {
-    const { data } = await apiMocked.get<Product>(
-      `${endpoints.product.get(product_uuid)}`
-    );
+    const { data } = await apiMocked.get<Product>(url);
 
     return data;
   } catch (error) {
