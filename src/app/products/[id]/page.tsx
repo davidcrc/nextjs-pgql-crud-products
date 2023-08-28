@@ -3,6 +3,7 @@ import productService from '@/service/product-service';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter } from '@nextui-org/card';
 import { Divider } from '@nextui-org/divider';
+import Actions from './Actions';
 
 async function loadProduct(productUuid: string) {
   const response = await productService.getProduct(
@@ -33,12 +34,7 @@ const Product = async ({ params }: ProductProps) => {
       </CardBody>
       <Divider />
       <CardFooter className='gap-2 justify-end'>
-        <Button size='md' color='danger' className='hover:bg-red-700'>
-          Remove
-        </Button>
-        <Button size='md' color='success' className='hover:bg-green-700'>
-          Edit
-        </Button>
+        <Actions productUUID={params.id} />
       </CardFooter>
     </Card>
   );

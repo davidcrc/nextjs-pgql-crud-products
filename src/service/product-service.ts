@@ -53,10 +53,29 @@ const createProduct = async (product: ProductDto) => {
   }
 };
 
+const deleteProduct = async (input: GetInput) => {
+  const { product_uuid } = input;
+
+  if (!product_uuid) {
+    return;
+  }
+
+  try {
+    const { data } = await apiMocked.delete<Product>(
+      endpoints.product.delete(product_uuid),
+    );
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const productManagement = {
   getProduct,
   getProducts,
   createProduct,
+  deleteProduct,
 };
 
 export default productManagement;
