@@ -1,7 +1,7 @@
-import { apiMocked } from "@/axios/index";
-import endpoints from "@/endpoints";
-import { ProductDto } from "./product.dto";
-import { Product } from "@prisma/client";
+import { apiMocked } from '@/axios/index';
+import endpoints from '@/endpoints';
+import { ProductDto } from './product.dto';
+import { Product } from '@prisma/client';
 
 type GetInput = {
   product_uuid?: string;
