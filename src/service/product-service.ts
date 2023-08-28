@@ -53,6 +53,20 @@ const createProduct = async (product: ProductDto) => {
   }
 };
 
+const createProductv2 = async (formData: any) => {
+  try {
+    const { data } = await apiMocked.post<Product>(
+      endpoints.product.create(),
+      formData,
+      { headers: { 'Content-Type': 'multipart/form-data' } },
+    );
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const updateProduct = async (input: ProductDto & { uuid: string }) => {
   const { uuid, ...rest } = input;
 
@@ -95,6 +109,7 @@ const productManagement = {
   updateProduct,
   getProducts,
   createProduct,
+  createProductv2,
   deleteProduct,
 };
 
