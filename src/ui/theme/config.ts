@@ -1,6 +1,6 @@
 const FONT_FAMILY = {
-  inter: ["var(--font-inter)"],
-  mono: ["var(--font-roboto-mono)"],
+  inter: ['var(--font-inter)'],
+  mono: ['var(--font-roboto-mono)'],
 };
 
 const themeConfig = {

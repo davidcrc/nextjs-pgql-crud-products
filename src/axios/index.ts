@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const API_URL = process.env.API_URL;
 
@@ -6,8 +6,8 @@ const api = axios.create({
   baseURL: API_URL,
   withCredentials: false,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   },
 });
 
@@ -16,7 +16,7 @@ const apiSigned = axios.create({
 });
 
 const apiMocked = axios.create({
-  baseURL: "/api",
+  baseURL: '/api',
 });
 
 export default api;
