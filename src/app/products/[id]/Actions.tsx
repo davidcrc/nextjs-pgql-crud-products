@@ -28,7 +28,9 @@ const Actions = ({ productUUID }: { productUUID: string }) => {
     }
   };
 
-  const handleEdit = async () => {};
+  const handleEdit = async () => {
+    router.push(`/products/edit/${productUUID}`);
+  };
 
   return (
     <>

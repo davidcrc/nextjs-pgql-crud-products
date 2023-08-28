@@ -53,6 +53,25 @@ const createProduct = async (product: ProductDto) => {
   }
 };
 
+const updateProduct = async (input: ProductDto & { uuid: string }) => {
+  const { uuid, ...rest } = input;
+
+  if (!uuid) {
+    return;
+  }
+
+  try {
+    const { data } = await apiMocked.put<Product>(
+      endpoints.product.update(uuid),
+      rest,
+    );
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deleteProduct = async (input: GetInput) => {
   const { product_uuid } = input;
 
@@ -73,6 +92,7 @@ const deleteProduct = async (input: GetInput) => {
 
 const productManagement = {
   getProduct,
+  updateProduct,
   getProducts,
   createProduct,
   deleteProduct,

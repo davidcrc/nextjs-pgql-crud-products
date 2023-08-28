@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Button, Input, Textarea } from '@nextui-org/react';
 import productService from '@/service/product-service';
 import { ProductFormType } from '.';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 const ProductForm = () => {
+  const params = useParams();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const formMethods = useForm<ProductFormType>({
@@ -18,12 +19,11 @@ const ProductForm = () => {
     },
   });
 
+  const productId = params.id as string;
+
   const { control, handleSubmit, reset } = formMethods;
 
-  const onSubmit = async (data: ProductFormType) => {
-    console.log('data', data);
-
-    setLoading(true);
+  const onCreate = async (data: ProductFormType) => {
     try {
       // TODO: this could be use useQuery
       const response = await productService.createProduct({
@@ -42,6 +42,53 @@ const ProductForm = () => {
       setLoading(false);
     }
   };
+
+  const onEdit = async (data: ProductFormType) => {
+    try {
+      // TODO: this could be use useQuery
+      await productService.updateProduct({
+        uuid: productId,
+        name: data.name,
+        price: data.price,
+        description: data.description,
+      });
+
+      router.push('/products');
+      router.refresh();
+    } catch (error) {
+      console.log('err', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onSubmit = async (data: ProductFormType) => {
+    setLoading(true);
+
+    if (!productId) {
+      onCreate(data);
+    } else {
+      onEdit(data);
+    }
+  };
+
+  useEffect(() => {
+    if (productId) {
+      productService
+        .getProduct({
+          product_uuid: productId,
+        })
+        .then((data) => {
+          if (data) {
+            reset({
+              name: data.name,
+              price: data.price.toString(),
+              description: data.description,
+            });
+          }
+        });
+    }
+  }, []);
 
   return (
     <form
@@ -108,7 +155,7 @@ const ProductForm = () => {
         className='hover:bg-blue-700'
         isLoading={loading}
       >
-        Save Product
+        {productId ? 'Edit' : 'Save'} Product
       </Button>
     </form>
   );

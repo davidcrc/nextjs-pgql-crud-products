@@ -24,19 +24,21 @@ const Product = async ({ params }: ProductProps) => {
   const product = await loadProduct(params.id);
 
   return (
-    <Card className='max-w-[400px]'>
-      <CardBody>
-        <p className='text-lg font-bold'>Name: {product?.name}</p>
-        <p className='text-2xl text-slate-600'>
-          Price: {Number(product?.price)}
-        </p>
-        <p>Description: {product?.description || '-'}</p>
-      </CardBody>
-      <Divider />
-      <CardFooter className='gap-2 justify-end'>
-        <Actions productUUID={params.id} />
-      </CardFooter>
-    </Card>
+    <div className='flex w-full justify-center'>
+      <Card className='min-w-[400px] max-w-[610px]'>
+        <CardBody>
+          <p className='text-lg font-bold'>Name: {product?.name}</p>
+          <p className='text-2xl text-slate-600'>
+            Price: {Number(product?.price)}
+          </p>
+          <p>Description: {product?.description || '-'}</p>
+        </CardBody>
+        <Divider />
+        <CardFooter className='gap-2 justify-end'>
+          <Actions productUUID={params.id} />
+        </CardFooter>
+      </Card>
+    </div>
   );
 };
 
